@@ -8,10 +8,11 @@
     "kill:8081": "kill $(lsof -t -i:8081)",
     "kill:8080": "kill $(lsof -t -i:8080)",
     "kill:8000": "kill $(lsof -t -i:8000)",
+    "init:key": "bash init.sh",
     "kill": "yarn kill:1337; yarn kill:8081;yarn kill:8080; yarn kill:8000;",
     "server:prod": "ENV=prod yarn build; ENV=prod node server/index.js",
     "start": "yarn server:prod",
-    "build": "node script/generateEnv.js; vue-cli-service build",
+    "build": "yarn init:key;node script/generateEnv.js; vue-cli-service build",
     "lint": "vue-cli-service lint",
     "heroku-postbuild": "npm run build"
   },
