@@ -1,17 +1,25 @@
 <template>
   <div class="home">
     <div class="container">
-      <h1  v-if='predictResult'>Prediction :{{`${predictResult.displayName}`}}</h1>
+      <h1  v-if='predictResult'>Prediction <span class='displayClassName'>:{{`${predictResult.displayName}`}}</span></h1>
       <h1 v-else>Prediction</h1>
-      <div> Hi {{username}}</div>
+
+      <div> Hi {{username}}: <span class='description'> Supported for only one image</span></div>
     </div>
     <div class="container">
       <vue-dropzone
         ref="myVueDropzone"
         id="dropzone"
         :options="dropzoneOptions"
+        uploadMultiple
         @vdropzone-complete='onComplete'
       />
+    </div>
+    <div>
+      <h4> API Example </h4>
+      <code>
+        $ curl   -F "files=@./testimg.jpg"   {{host}}/apis/files/upload
+      </code>
     </div>
   </div>
 </template>
@@ -28,10 +36,13 @@ export default {
   },
   data() {
     return {
+      host: `${window.location.protocol}://${window.location.hostname}`,
       dropzoneOptions: {
           url: '/apis/files/upload',
           thumbnailWidth: 150,
           maxFilesize: 0.5,
+          uploadMultiple: false,
+          maxFiles: 1,
           headers: { "My-Awesome-Header": "header value" }
       },
       email: null,
@@ -64,3 +75,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.displayClassName {
+  background: red;
+  color: white;
+}
+code {
+  background: black;
+  padding: 10px 20px;
+  color: yellow;
+}
+</style>
