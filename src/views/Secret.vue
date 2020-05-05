@@ -1,9 +1,11 @@
 <template>
   <div class="home">
     <div class="container">
-      <h1  v-if='predictResult'>Prediction <span class='displayClassName'>:{{`${predictResult.displayName}`}}</span></h1>
+      <h1  v-if='predictResult'>Prediction :
+        <span class='displayClassName'>{{`${predictResult.displayName}`}}</span>
+      </h1>
       <h1 v-else>Prediction</h1>
-
+      <p class='displayScore' v-if='predictResult'>Score：{{`${predictResult.classification && predictResult.classification.score || 0}`}}</p>
       <div> Hi {{username}}: <span class='description'> Supported for only one image</span></div>
     </div>
     <div class="container">
